@@ -1492,95 +1492,91 @@ input:checked + .switch-bg:before {
   box-shadow: 0 4px 15px rgba(255, 8, 68, 0.3);
 }
 
-/* Node HTML in SVG styling */
-.node-html {
-  width: 100%;
-  height: 100%;
-  border-radius: 8px;
-  padding: 6px 10px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  border: 1px solid var(--border-glass);
-  background-color: var(--bg-surface);
-  color: #ffffff;
+/* Vector Topology Styles */
+.node-group-vector {
   cursor: pointer;
-  transition: var(--transition-expo);
-  user-select: none;
-  overflow: hidden;
 }
 
-.node-html:hover {
-  border-color: var(--border-glass-focus);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+.node-rect-vector {
+  fill: #0c0e14;
+  stroke: var(--border-glass);
+  stroke-width: 1.5px;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.node-html i {
-  font-size: 20px;
-  color: var(--text-secondary);
-  flex-shrink: 0;
-  transition: var(--transition-expo);
+.node-group-vector:hover .node-rect-vector {
+  stroke: var(--border-glass-focus);
+  fill: #141722;
+  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.5));
 }
 
-.node-html .node-info {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  min-width: 0;
+/* Specific node status strokes */
+.node-group-vector.active-solar .node-rect-vector { stroke: #fe8c00; fill: rgba(248, 54, 0, 0.02); }
+.node-group-vector.active-solar:hover .node-rect-vector { fill: rgba(248, 54, 0, 0.05); }
+
+.node-group-vector.active-biogas .node-rect-vector { stroke: #00f2fe; fill: rgba(0, 242, 254, 0.02); }
+.node-group-vector.active-biogas:hover .node-rect-vector { fill: rgba(0, 242, 254, 0.05); }
+
+.node-group-vector.active-grid .node-rect-vector { stroke: #3b82f6; fill: rgba(59, 130, 246, 0.02); }
+.node-group-vector.active-grid:hover .node-rect-vector { fill: rgba(59, 130, 246, 0.05); }
+
+.node-group-vector.active-algae .node-rect-vector { stroke: #06b6d4; fill: rgba(6, 182, 212, 0.02); }
+.node-group-vector.active-algae:hover .node-rect-vector { fill: rgba(6, 182, 212, 0.05); }
+
+.node-group-vector.danger .node-rect-vector {
+  stroke: #ff0844;
+  fill: rgba(255, 8, 68, 0.03);
+  animation: pulse-vector-danger 1.5s infinite alternate;
+}
+.node-group-vector.danger:hover .node-rect-vector {
+  fill: rgba(255, 8, 68, 0.06);
 }
 
-.node-html .title {
-  font-size: 11px;
+@keyframes pulse-vector-danger {
+  0% { stroke: #ff0844; }
+  100% { stroke: #ffb199; }
+}
+
+.node-group-vector.offline .node-rect-vector {
+  stroke: var(--color-offline);
+  opacity: 0.6;
+}
+
+/* Typography in SVG */
+.node-title-vector {
+  font-size: 10.5px;
   font-weight: 600;
-  color: var(--text-secondary);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  fill: var(--text-secondary);
+  font-family: var(--font-sans);
+  pointer-events: none;
 }
 
-.node-html .value {
+.node-value-vector {
   font-size: 13.5px;
   font-weight: 700;
+  fill: #ffffff;
   font-family: var(--font-mono);
-  white-space: nowrap;
+  pointer-events: none;
 }
 
-.node-html .sub {
-  font-size: 9.5px;
-  color: var(--text-muted);
-  white-space: nowrap;
+.node-sub-vector {
+  font-size: 8.5px;
+  fill: var(--text-muted);
+  font-family: var(--font-sans);
+  pointer-events: none;
 }
 
-/* Node coloring on active flow states */
-.node-html.active-solar { border-color: #fe8c00; background: rgba(248, 54, 0, 0.04); }
-.node-html.active-solar i { color: #fe8c00; filter: drop-shadow(0 0 4px rgba(248, 54, 0, 0.4)); }
-
-.node-html.active-biogas { border-color: #00f2fe; background: rgba(0, 242, 254, 0.04); }
-.node-html.active-biogas i { color: #00f2fe; filter: drop-shadow(0 0 4px rgba(0, 242, 254, 0.4)); }
-
-.node-html.active-grid { border-color: #3b82f6; background: rgba(59, 130, 246, 0.04); }
-.node-html.active-grid i { color: #3b82f6; filter: drop-shadow(0 0 4px rgba(59, 130, 246, 0.4)); }
-
-.node-html.active-algae { border-color: #06b6d4; background: rgba(6, 182, 212, 0.04); }
-.node-html.active-algae i { color: #06b6d4; filter: drop-shadow(0 0 4px rgba(6, 182, 212, 0.4)); }
-
-.node-html.offline { border-color: var(--color-offline); opacity: 0.6; }
-.node-html.offline i { color: var(--color-offline); }
-
-.node-html.danger {
-  border-color: #ff0844;
-  background: rgba(255, 8, 68, 0.05);
-  animation: pulse-danger-card 1.5s infinite alternate;
-}
-.node-html.danger i {
-  color: #ff0844;
-  animation: pulse-danger-icon 1s infinite alternate;
+/* Icon colors */
+.svg-icon {
+  transition: all 0.3s ease;
 }
 
-@keyframes pulse-danger-card {
-  0% { box-shadow: 0 0 0 rgba(255, 8, 68, 0); }
-  100% { box-shadow: 0 0 8px rgba(255, 8, 68, 0.2); border-color: #ffb199; }
-}
+.active-solar .svg-icon { color: #fe8c00; }
+.active-biogas .svg-icon { color: #00f2fe; }
+.active-grid .svg-icon { color: #3b82f6; }
+.active-algae .svg-icon { color: #06b6d4; }
+.offline .svg-icon { color: var(--color-offline); }
+.danger .svg-icon { color: #ff0844; }
 
 /* Slide progress indicator */
 .slide-progress {

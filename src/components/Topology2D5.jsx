@@ -247,106 +247,123 @@ export const Topology2D5 = () => {
               className={`flow-line ${showGensetFlow ? 'flow-active-algae' : ''}`}
             />
 
-            {/* INTERACTIVE NODES (FOREIGN OBJECT HTML CONTAINERS) */}
+            {/* INTERACTIVE NODES (PURE SVG VECTOR BOXES) */}
             {/* Node 1: Panel Surya */}
-            <foreignObject x="60" y="45" width="140" height="70" onClick={() => handleNodeClick('solar')}>
-              <div className={`node-html ${solarHeartbeat ? 'active-solar' : 'offline'}`}>
-                <i className="fa-solid fa-solar-panel"></i>
-                <div className="node-info">
-                  <span className="title">{currentLang === 'id' ? "Panel Surya" : "Solar Panel"}</span>
-                  <span className="value">{solarHeartbeat ? `${solarOutput} kW` : 'OFFLINE'}</span>
-                </div>
-              </div>
-            </foreignObject>
+            <g className={`node-group-vector ${solarHeartbeat ? 'active-solar' : 'offline'}`} transform="translate(60, 45)" onClick={() => handleNodeClick('solar')}>
+              <rect width="140" height="70" rx="8" className="node-rect-vector" />
+              <g transform="translate(12, 26)" className="svg-icon">
+                <rect x="0" y="0" width="22" height="18" rx="2" stroke="currentColor" strokeWidth="1.8" fill="none" />
+                <line x1="11" y1="0" x2="11" y2="18" stroke="currentColor" strokeWidth="1.8" />
+                <line x1="0" y1="9" x2="22" y2="9" stroke="currentColor" strokeWidth="1.8" />
+                <path d="M 4,18 L 1,22 H 21 L 18,18" stroke="currentColor" strokeWidth="1.8" fill="none" />
+              </g>
+              <text x="44" y="28" className="node-title-vector">{currentLang === 'id' ? "Panel Surya" : "Solar Panel"}</text>
+              <text x="44" y="48" className="node-value-vector">{solarHeartbeat ? `${solarOutput} kW` : 'OFFLINE'}</text>
+            </g>
 
             {/* Node 2: Baterai */}
-            <foreignObject x="280" y="45" width="140" height="70" onClick={() => handleNodeClick('battery')}>
-              <div className={`node-html ${batteryHeartbeat ? 'active-solar' : 'offline'}`}>
-                <i className="fa-solid fa-car-battery"></i>
-                <div className="node-info">
-                  <span className="title">{currentLang === 'id' ? "Baterai (LFP)" : "Battery (LFP)"}</span>
-                  <span className="value">{batteryHeartbeat ? `${batteryLevel}%` : 'OFFLINE'}</span>
-                </div>
-              </div>
-            </foreignObject>
+            <g className={`node-group-vector ${batteryHeartbeat ? 'active-solar' : 'offline'}`} transform="translate(280, 45)" onClick={() => handleNodeClick('battery')}>
+              <rect width="140" height="70" rx="8" className="node-rect-vector" />
+              <g transform="translate(12, 26)" className="svg-icon">
+                <rect x="0" y="3" width="20" height="12" rx="2" stroke="currentColor" strokeWidth="1.8" fill="none" />
+                <path d="M 20,7 V 11" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
+                <line x1="4" y1="9" x2="8" y2="9" stroke="currentColor" strokeWidth="1.8" />
+                <line x1="6" y1="7" x2="6" y2="11" stroke="currentColor" strokeWidth="1.8" />
+                <line x1="12" y1="9" x2="16" y2="9" stroke="currentColor" strokeWidth="1.8" />
+              </g>
+              <text x="44" y="28" className="node-title-vector">{currentLang === 'id' ? "Baterai (LFP)" : "Battery (LFP)"}</text>
+              <text x="44" y="48" className="node-value-vector">{batteryHeartbeat ? `${batteryLevel}%` : 'OFFLINE'}</text>
+            </g>
 
             {/* Node 3: Smart Grid */}
-            <foreignObject x="600" y="45" width="140" height="70" onClick={() => handleNodeClick('grid')}>
-              <div className={`node-html ${showGridFlow ? 'active-grid' : 'offline'}`}>
-                <i className="fa-solid fa-tower-broadcast"></i>
-                <div className="node-info">
-                  <span className="title">{currentLang === 'id' ? "Grid Desa" : "Village Grid"}</span>
-                  <span className="value">{showGridFlow ? (isGensetOnline && isValveOpen ? "22.8 kW Load" : "10.4 kW Load") : "0.0 kW"}</span>
-                </div>
-              </div>
-            </foreignObject>
+            <g className={`node-group-vector ${showGridFlow ? 'active-grid' : 'offline'}`} transform="translate(600, 45)" onClick={() => handleNodeClick('grid')}>
+              <rect width="140" height="70" rx="8" className="node-rect-vector" />
+              <g transform="translate(12, 26)" className="svg-icon">
+                <path d="M 3,22 L 11,2 L 19,22" stroke="currentColor" strokeWidth="1.8" fill="none" />
+                <line x1="7" y1="12" x2="15" y2="12" stroke="currentColor" strokeWidth="1.8" />
+                <line x1="5" y1="17" x2="17" y2="17" stroke="currentColor" strokeWidth="1.8" />
+                <path d="M 1,9 H 21" stroke="currentColor" strokeWidth="1.8" />
+                <path d="M 11,2 V 22" stroke="currentColor" strokeWidth="1.8" strokeDasharray="1 2" />
+              </g>
+              <text x="44" y="28" className="node-title-vector">{currentLang === 'id' ? "Grid Desa" : "Village Grid"}</text>
+              <text x="44" y="48" className="node-value-vector">{showGridFlow ? (isGensetOnline && isValveOpen ? "22.8 kW Load" : "10.4 kW Load") : "0.0 kW"}</text>
+            </g>
 
             {/* Node 4: Biodigester */}
-            <foreignObject x="60" y="195" width="140" height="70" onClick={() => handleNodeClick('biodigester')}>
-              <div className={`node-html ${biodigesterHeartbeat ? 'active-biogas' : 'offline'}`}>
-                <i className="fa-solid fa-flask"></i>
-                <div className="node-info">
-                  <span className="title">Biodigester</span>
-                  <span className="value">{biodigesterHeartbeat ? `${biodigesterHeartbeat ? '37.2 °C' : 'NaN'}` : 'OFFLINE'}</span>
-                  {biodigesterHeartbeat && <span className="sub">pH: 6.82 &bull; H.R: 12d</span>}
-                </div>
-              </div>
-            </foreignObject>
+            <g className={`node-group-vector ${biodigesterHeartbeat ? 'active-biogas' : 'offline'}`} transform="translate(60, 195)" onClick={() => handleNodeClick('biodigester')}>
+              <rect width="140" height="70" rx="8" className="node-rect-vector" />
+              <g transform="translate(12, 26)" className="svg-icon">
+                <path d="M 6,2 H 16" stroke="currentColor" strokeWidth="1.8" />
+                <path d="M 9,2 V 6 L 2,19 A 2,2 0 0 0 4,22 H 18 A 2,2 0 0 0 20,19 L 13,6 V 2" stroke="currentColor" strokeWidth="1.8" fill="none" />
+                <path d="M 4,18 H 18" stroke="currentColor" strokeWidth="1.8" strokeDasharray="2 2" />
+              </g>
+              <text x="44" y="23" className="node-title-vector">Biodigester</text>
+              <text x="44" y="41" className="node-value-vector">{biodigesterHeartbeat ? "37.2 °C" : "OFFLINE"}</text>
+              {biodigesterHeartbeat && <text x="44" y="55" className="node-sub-vector">pH 6.82 &bull; Ret: 12d</text>}
+            </g>
 
             {/* Node 5: Tangki Gas */}
-            <foreignObject x="280" y="195" width="140" height="70" onClick={() => handleNodeClick('gastank')}>
-              <div className={`node-html ${gastankHeartbeat ? (isEmergency ? 'danger' : 'active-biogas') : 'offline'}`}>
-                <i className="fa-solid fa-database"></i>
-                <div className="node-info">
-                  <span className="title">{currentLang === 'id' ? "Tangki Gas" : "Gas Tank"}</span>
-                  <span className="value">{gastankHeartbeat ? (isEmergency ? "98% (High)" : "82%") : "OFFLINE"}</span>
-                </div>
-              </div>
-            </foreignObject>
+            <g className={`node-group-vector ${gastankHeartbeat ? (isEmergency ? 'danger' : 'active-biogas') : 'offline'}`} transform="translate(280, 195)" onClick={() => handleNodeClick('gastank')}>
+              <rect width="140" height="70" rx="8" className="node-rect-vector" />
+              <g transform="translate(12, 26)" className="svg-icon">
+                <ellipse cx="11" cy="5" rx="10" ry="3" stroke="currentColor" strokeWidth="1.8" fill="none" />
+                <path d="M 1,5 V 11 A 10,3 0 0 0 21,11 V 5" stroke="currentColor" strokeWidth="1.8" fill="none" />
+                <path d="M 1,11 V 17 A 10,3 0 0 0 21,17 V 11" stroke="currentColor" strokeWidth="1.8" fill="none" />
+              </g>
+              <text x="44" y="28" className="node-title-vector">{currentLang === 'id' ? "Tangki Gas" : "Gas Tank"}</text>
+              <text x="44" y="48" className="node-value-vector">{gastankHeartbeat ? (isEmergency ? "98% (High)" : "82%") : "OFFLINE"}</text>
+            </g>
 
             {/* Node 6: Solenoid Valve */}
-            <foreignObject x="460" y="195" width="100" height="70" onClick={() => handleNodeClick('valve')}>
-              <div className={`node-html ${isEmergency || !isValveOpen ? 'danger' : 'active-biogas'}`}>
-                <i className={`fa-solid ${isEmergency || !isValveOpen ? 'fa-door-closed' : 'fa-door-open'}`}></i>
-                <div className="node-info">
-                  <span className="title">{currentLang === 'id' ? "Katup Gas" : "Valve"}</span>
-                  <span className="value">{isEmergency ? 'SHUT' : (isValveOpen ? 'OPEN' : 'CLOSED')}</span>
-                </div>
-              </div>
-            </foreignObject>
+            <g className={`node-group-vector ${isEmergency || !isValveOpen ? 'danger' : 'active-biogas'}`} transform="translate(460, 195)" onClick={() => handleNodeClick('valve')}>
+              <rect width="100" height="70" rx="8" className="node-rect-vector" />
+              <g transform="translate(12, 26)" className="svg-icon">
+                <path d="M 2,5 L 18,15 V 5 L 2,15 Z" stroke="currentColor" strokeWidth="1.8" fill="currentColor" fillOpacity="0.1" />
+                <circle cx="10" cy="10" r="3" fill="#0c0e14" stroke="currentColor" strokeWidth="1.5" />
+                <path d="M 10,7 V 2 H 6 H 14" stroke="currentColor" strokeWidth="1.8" />
+              </g>
+              <text x="40" y="28" className="node-title-vector">{currentLang === 'id' ? "Katup Gas" : "Valve"}</text>
+              <text x="40" y="48" className="node-value-vector" style={{ fontSize: '11px' }}>{isEmergency ? 'SHUT' : (isValveOpen ? 'OPEN' : 'CLOSED')}</text>
+            </g>
 
             {/* Node 7: Genset Biogas */}
-            <foreignObject x="600" y="195" width="140" height="70" onClick={() => handleNodeClick('genset')}>
-              <div className={`node-html ${isGensetOnline && isValveOpen && !isEmergency ? 'active-grid' : 'offline'}`}>
-                <i className="fa-solid fa-engine"></i>
-                <div className="node-info">
-                  <span className="title">{currentLang === 'id' ? "Genset Biogas" : "Biogas Genset"}</span>
-                  <span className="value">{isGensetOnline && isValveOpen && !isEmergency ? `${gensetOutput} kW` : 'OFFLINE'}</span>
-                </div>
-              </div>
-            </foreignObject>
+            <g className={`node-group-vector ${isGensetOnline && isValveOpen && !isEmergency ? 'active-grid' : 'offline'}`} transform="translate(600, 195)" onClick={() => handleNodeClick('genset')}>
+              <rect width="140" height="70" rx="8" className="node-rect-vector" />
+              <g transform="translate(12, 26)" className="svg-icon">
+                <rect x="1" y="3" width="20" height="14" rx="2" stroke="currentColor" strokeWidth="1.8" fill="none" />
+                <line x1="5" y1="3" x2="5" y2="17" stroke="currentColor" strokeWidth="1.8" />
+                <line x1="17" y1="3" x2="17" y2="17" stroke="currentColor" strokeWidth="1.8" />
+                <path d="M 9,10 L 13,8 L 10,12 L 14,10" stroke="currentColor" strokeWidth="1.8" fill="none" />
+              </g>
+              <text x="44" y="28" className="node-title-vector">{currentLang === 'id' ? "Genset Biogas" : "Biogas Genset"}</text>
+              <text x="44" y="48" className="node-value-vector">{isGensetOnline && isValveOpen && !isEmergency ? `${gensetOutput} kW` : 'OFFLINE'}</text>
+            </g>
 
             {/* Node 8: Slurry Tank */}
-            <foreignObject x="60" y="335" width="140" height="70" onClick={() => handleNodeClick('slurry')}>
-              <div className="node-html active-biogas" style={{ borderColor: '#b45309' }}>
-                <i className="fa-solid fa-bucket" style={{ color: '#b45309' }}></i>
-                <div className="node-info">
-                  <span className="title">{currentLang === 'id' ? "Tangki Slurry" : "Slurry Tank"}</span>
-                  <span className="value">{Math.round(slurryLevel)}% ({slurryVolume}L)</span>
-                </div>
-              </div>
-            </foreignObject>
+            <g className="node-group-vector active-biogas" transform="translate(60, 335)" onClick={() => handleNodeClick('slurry')}>
+              <rect width="140" height="70" rx="8" className="node-rect-vector" style={{ stroke: '#b45309', fill: 'rgba(180, 83, 9, 0.02)' }} />
+              <g transform="translate(12, 26)" className="svg-icon" style={{ color: '#b45309' }}>
+                <path d="M 3,4 H 19" stroke="currentColor" strokeWidth="1.8" />
+                <path d="M 4,4 L 6,18 A 2,2 0 0 0 8,20 H 14 A 2,2 0 0 0 16,18 L 18,4" stroke="currentColor" strokeWidth="1.8" fill="none" />
+                <path d="M 6,11 H 16" stroke="currentColor" strokeWidth="1.8" strokeDasharray="2 1" />
+              </g>
+              <text x="44" y="28" className="node-title-vector">{currentLang === 'id' ? "Tangki Slurry" : "Slurry Tank"}</text>
+              <text x="44" y="48" className="node-value-vector">{Math.round(slurryLevel)}% ({slurryVolume}L)</text>
+            </g>
 
             {/* Node 9: FBR Algae */}
-            <foreignObject x="600" y="335" width="140" height="70" onClick={() => handleNodeClick('algae')}>
-              <div className={`node-html ${isEmergency ? 'danger' : 'active-algae'}`}>
-                <i className="fa-solid fa-vial"></i>
-                <div className="node-info">
-                  <span className="title">{currentLang === 'id' ? "FBR Mikroalga" : "Algae FBR"}</span>
-                  <span className="value">{isEmergency ? 'STRESS' : `${algaeDensity} OD`}</span>
-                </div>
-              </div>
-            </foreignObject>
+            <g className={`node-group-vector ${isEmergency ? 'danger' : 'active-algae'}`} transform="translate(600, 335)" onClick={() => handleNodeClick('algae')}>
+              <rect width="140" height="70" rx="8" className="node-rect-vector" />
+              <g transform="translate(12, 26)" className="svg-icon">
+                <path d="M 5,2 H 13" stroke="currentColor" strokeWidth="1.8" />
+                <path d="M 7,2 V 15 A 2,2 0 0 0 9,17 A 2,2 0 0 0 11,15 V 2" stroke="currentColor" strokeWidth="1.8" fill="none" />
+                <circle cx="9" cy="7" r="0.8" fill="currentColor" />
+                <circle cx="11" cy="11" r="0.8" fill="currentColor" />
+                <circle cx="9" cy="14" r="0.8" fill="currentColor" />
+              </g>
+              <text x="44" y="28" className="node-title-vector">{currentLang === 'id' ? "FBR Mikroalga" : "Algae FBR"}</text>
+              <text x="44" y="48" className="node-value-vector">{isEmergency ? 'STRESS' : `${algaeDensity} OD`}</text>
+            </g>
           </svg>
 
           {/* Node details slide-up popup panel */}
