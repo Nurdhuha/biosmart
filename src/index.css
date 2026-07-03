@@ -1666,6 +1666,15 @@ input:checked + .switch-bg:before {
     width: 100%;
     justify-content: space-between;
     flex-wrap: wrap;
+    gap: 8px;
+  }
+  
+  /* Hide unnecessary widgets on mobile to save space */
+  .weather-widget {
+    display: none !important;
+  }
+  .user-profile span {
+    display: none !important; /* Keep only icon */
   }
   
   .sidebar {
@@ -1679,6 +1688,7 @@ input:checked + .switch-bg:before {
     border-top: 1px solid var(--border-glass);
     flex-direction: row;
     justify-content: space-around;
+    z-index: 100;
   }
   
   .logo-section, .sidebar-footer {
@@ -1714,14 +1724,66 @@ input:checked + .switch-bg:before {
   .main-content {
     margin-left: 0 !important;
     padding-bottom: 80px; 
+    padding-left: 16px;
+    padding-right: 16px;
   }
   
+  /* KPI typography and spacing adjustments on mobile */
+  .kpi-container {
+    padding: 14px 16px;
+    height: 110px;
+  }
+  .kpi-value {
+    font-size: 24px;
+  }
+  .kpi-unit {
+    font-size: 14px;
+  }
+  
+  /* Topology Mobile Scrollable viewport */
+  .topology-container {
+    overflow-x: auto;
+    justify-content: flex-start;
+    padding-bottom: 20px;
+    -webkit-overflow-scrolling: touch;
+  }
+  .topology-svg {
+    min-width: 680px;
+    height: 380px;
+  }
+  
+  /* Control override mobile styling */
+  .control-item {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+    padding: 12px;
+  }
+  .control-item > div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
   .slide-confirm-container {
-    width: 160px;
+    width: 100% !important;
+  }
+  .slide-track-bar {
+    height: 42px;
+    border-radius: 21px;
+  }
+  .slide-thumb {
+    width: 38px;
+    height: 38px;
+    top: 1px;
+    border-radius: 50%;
+  }
+  .slide-track-label {
+    font-size: 11px;
   }
   
   /* Disable heavy graphics on mobile to avoid UI lags */
-  .bento-card, .top-bar, .time-widget, .weather-widget, .action-circle-btn, .user-profile {
+  .bento-card, .top-bar, .time-widget, .action-circle-btn, .user-profile {
     backdrop-filter: none !important;
   }
   .radial-val {

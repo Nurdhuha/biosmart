@@ -219,15 +219,7 @@ export const Topology2D5 = () => {
               strokeLinecap="round"
               className={`flow-line ${showGensetFlow ? 'flow-active-grid' : ''}`}
             />
-            {/* 7. Grid -> Desa (H: 740 -> 800 at y=80) */}
-            <path
-              d="M 740,80 H 800"
-              fill="none"
-              stroke={showGridFlow ? "#3b82f6" : "#181c25"}
-              strokeWidth="5"
-              strokeLinecap="round"
-              className={`flow-line ${showGridFlow ? 'flow-active-grid' : ''}`}
-            />
+
             {/* 8. Biodigester -> Slurry Tank (V: 130, 265 -> 335) */}
             <path
               d="M 130,265 V 335"

@@ -26,14 +26,7 @@ export const ControlPanel = () => {
   const handleRef = useRef(null);
   const [dragging, setDragging] = useState(false);
   const [dragX, setDragX] = useState(0);
-  const [maxDrag, setMaxDrag] = useState(0);
   const startXRef = useRef(0);
-
-  useEffect(() => {
-    if (sliderRef.current && handleRef.current) {
-      setMaxDrag(sliderRef.current.offsetWidth - handleRef.current.offsetWidth - 4);
-    }
-  }, [isValveOpen]);
 
   // Touch/Mouse Drag handlers
   const handleDragStart = (e) => {
@@ -50,8 +43,12 @@ export const ControlPanel = () => {
     const clientX = e.type === 'touchmove' ? e.touches[0].clientX : e.clientX;
     let delta = clientX - startXRef.current;
     
+    const currentMaxDrag = sliderRef.current && handleRef.current 
+      ? sliderRef.current.offsetWidth - handleRef.current.offsetWidth - 4
+      : 120;
+    
     if (delta < 0) delta = 0;
-    if (delta > maxDrag) delta = maxDrag;
+    if (delta > currentMaxDrag) delta = currentMaxDrag;
     
     setDragX(delta);
   };
@@ -64,7 +61,11 @@ export const ControlPanel = () => {
       handleRef.current.style.transition = 'transform 0.25s cubic-bezier(0.16, 1, 0.3, 1)';
     }
 
-    if (dragX >= maxDrag * 0.9) {
+    const currentMaxDrag = sliderRef.current && handleRef.current 
+      ? sliderRef.current.offsetWidth - handleRef.current.offsetWidth - 4
+      : 120;
+
+    if (dragX >= currentMaxDrag * 0.9) {
       // Slid successfully! Toggle Solenoid Valve
       playAcknowledgeSweep();
       const nextState = !isValveOpen;
