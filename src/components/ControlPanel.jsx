@@ -129,38 +129,37 @@ export const ControlPanel = () => {
         {/* Control 1: Solenoid Valve */}
         <div className={`control-item ${!isValveOpen || isEmergency ? 'danger-state' : ''}`}>
           <div className="ctrl-info">
-            <span className="ctrl-lbl">{t('lblCtrlValve')}</span>
+            <div className="ctrl-header-row">
+              <span className="ctrl-lbl">{t('lblCtrlValve')}</span>
+              <span className={`ctrl-status font-mono ${isEmergency || !isValveOpen ? 'text-danger' : 'text-success'}`}>
+                {isEmergency ? 'CLOSED (ALERT)' : (isValveOpen ? 'OPEN' : 'CLOSED')}
+              </span>
+            </div>
             <span className="ctrl-desc">{t('descCtrlValve')}</span>
           </div>
           
-          <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-            <span className={`ctrl-status font-mono ${isEmergency || !isValveOpen ? 'text-danger' : 'text-success'}`}>
-              {isEmergency ? 'CLOSED (ALERT)' : (isValveOpen ? 'OPEN' : 'CLOSED')}
-            </span>
-            
-            <div className="slide-confirm-container">
-              <div 
-                ref={sliderRef}
-                className={`slide-track-bar ${!isValveOpen ? 'unlocked' : ''}`}
-                onMouseMove={handleDrag}
-                onTouchMove={handleDrag}
-                onMouseLeave={handleDragEnd}
+          <div className="slide-confirm-container">
+            <div 
+              ref={sliderRef}
+              className={`slide-track-bar ${!isValveOpen ? 'unlocked' : ''}`}
+              onMouseMove={handleDrag}
+              onTouchMove={handleDrag}
+              onMouseLeave={handleDragEnd}
+            >
+              <div className="slide-progress" style={{ width: `${dragX + (dragX > 0 ? 18 : 0)}px` }}></div>
+              <div className="slide-track-label">
+                {isValveOpen ? t('textSlideValve') : t('textSlideValveOpen')}
+              </div>
+              <div
+                ref={handleRef}
+                className="slide-thumb"
+                onMouseDown={handleDragStart}
+                onTouchStart={handleDragStart}
+                onMouseUp={handleDragEnd}
+                onTouchEnd={handleDragEnd}
+                style={{ transform: `translateX(${dragX}px)` }}
               >
-                <div className="slide-progress" style={{ width: `${dragX + (dragX > 0 ? 18 : 0)}px` }}></div>
-                <div className="slide-track-label">
-                  {isValveOpen ? t('textSlideValve') : t('textSlideValveOpen')}
-                </div>
-                <div
-                  ref={handleRef}
-                  className="slide-thumb"
-                  onMouseDown={handleDragStart}
-                  onTouchStart={handleDragStart}
-                  onMouseUp={handleDragEnd}
-                  onTouchEnd={handleDragEnd}
-                  style={{ transform: `translateX(${dragX}px)` }}
-                >
-                  <i className="fa-solid fa-chevron-right"></i>
-                </div>
+                <i className="fa-solid fa-chevron-right"></i>
               </div>
             </div>
           </div>
@@ -169,26 +168,25 @@ export const ControlPanel = () => {
         {/* Control 2: Genset emergency stop */}
         <div className={`control-item ${!isGensetOnline ? 'danger-state' : ''}`}>
           <div className="ctrl-info">
-            <span className="ctrl-lbl">{t('lblCtrlGenset')}</span>
+            <div className="ctrl-header-row">
+              <span className="ctrl-lbl">{t('lblCtrlGenset')}</span>
+              <span className={`ctrl-status font-mono ${isGensetOnline ? 'text-success' : 'text-danger'}`}>
+                {isGensetOnline ? 'ONLINE' : 'OFFLINE'}
+              </span>
+            </div>
             <span className="ctrl-desc">{t('descCtrlGenset')}</span>
           </div>
 
-          <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-            <span className={`ctrl-status font-mono ${isGensetOnline ? 'text-success' : 'text-danger'}`}>
-              {isGensetOnline ? 'ONLINE' : 'OFFLINE'}
-            </span>
-
-            <div className="switch-wrapper">
-              <label className="custom-switch">
-                <input
-                  type="checkbox"
-                  checked={isGensetOnline}
-                  disabled={isLocked}
-                  onChange={handleSwitchChange}
-                />
-                <span className="switch-bg"></span>
-              </label>
-            </div>
+          <div className="ctrl-widget-container">
+            <label className="custom-switch">
+              <input
+                type="checkbox"
+                checked={isGensetOnline}
+                disabled={isLocked}
+                onChange={handleSwitchChange}
+              />
+              <span className="switch-bg"></span>
+            </label>
           </div>
         </div>
       </div>

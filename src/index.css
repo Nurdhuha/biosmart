@@ -1229,6 +1229,15 @@ body.emergency-active .kpi-icon.safety-alert {
   display: flex;
   flex-direction: column;
   gap: 2px;
+  flex-grow: 1;
+}
+
+.ctrl-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
 }
 
 .ctrl-lbl {
@@ -1759,11 +1768,11 @@ input:checked + .switch-bg:before {
     gap: 12px;
     padding: 12px;
   }
-  .control-item > div {
+  .ctrl-widget-container {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    justify-content: flex-end;
     width: 100%;
+    margin-top: 4px;
   }
   .slide-confirm-container {
     width: 100% !important;
@@ -1780,6 +1789,69 @@ input:checked + .switch-bg:before {
   }
   .slide-track-label {
     font-size: 11px;
+  }
+
+  /* Log Aktivitas Sensor mobile enhancements */
+  .logs-action-bar {
+    flex-wrap: wrap;
+    width: 100%;
+  }
+  .logs-search {
+    flex-grow: 1;
+    width: auto !important;
+  }
+  .logs-filter {
+    flex-grow: 0;
+  }
+  
+  /* Convert Table to Card List on mobile */
+  .logs-table, 
+  .logs-table tbody, 
+  .logs-table tr, 
+  .logs-table td {
+    display: block;
+    width: 100% !important;
+    box-sizing: border-box;
+  }
+  .logs-table thead {
+    display: none !important;
+  }
+  .logs-table tr {
+    padding: 12px 14px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px 12px;
+  }
+  .logs-table td {
+    padding: 0 !important;
+    border-bottom: none !important;
+    background-color: transparent !important;
+  }
+  .logs-table td:nth-child(1) {
+    order: 2; /* Time second */
+    width: auto !important;
+    margin-left: auto;
+    font-size: 10.5px;
+    color: var(--text-muted);
+  }
+  .logs-table td:nth-child(2) {
+    order: 1; /* Severity & Source first */
+    width: auto !important;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+  }
+  .logs-table td:nth-child(3) {
+    order: 3; /* Message last */
+    width: 100% !important;
+    font-size: 12px;
+    color: var(--text-secondary);
+    line-height: 1.45;
+    word-break: break-word;
+    margin-top: 2px;
   }
   
   /* Disable heavy graphics on mobile to avoid UI lags */
